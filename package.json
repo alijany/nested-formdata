@@ -1,6 +1,6 @@
 {
   "name": "nested-formdata",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a JavaScript utility function that converts JavaScript nested objects into FormData. It's beneficial when you need to send your data to the server in multipart/form-data format. This utility is built with TypeScript and Lodash.",
   "author": "Mohammad Hosein Alijany",
   "keywords": [
