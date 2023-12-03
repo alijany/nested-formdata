@@ -1,0 +1,44 @@
+{
+  "name": "nested-formdata",
+  "version": "1.0.0",
+  "description": "This is a JavaScript utility function that converts JavaScript nested objects into FormData. It's beneficial when you need to send your data to the server in multipart/form-data format. This utility is built with TypeScript and Lodash.",
+  "author": "Mohammad Hosein Alijany",
+  "keywords": [
+    "nested-formdata",
+    "formdata",
+    "object-to-formdata"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alijany/nested-formdata.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "source": "./script.ts",
+  "type": "module",
+  "exports": {
+    "require": "./dist/nested-formdata.cjs",
+    "default": "./dist/nested-formdata.modern.js"
+  },
+  "main": "./dist/nested-formdata.cjs",
+  "module": "./dist/nested-formdata.module.js",
+  "unpkg": "./dist/nested-formdata.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "files": [
+    "dist/"
+  ],
+  "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "microbundle": "^0.15.1"
+  }
+}
