@@ -1,18 +1,18 @@
 import { isArray, isDate, isObject } from 'lodash'
 
-type BasicType = string | boolean | number | File
+type BasicType = string | boolean | number | File | undefined | null
 
 type DataObj<T> =
  | BasicType[]
  | {
-    [P in keyof T]: BasicType | BasicType[] | DataObj<T>
+    [P in keyof T]: BasicType | BasicType[] | Partial<DataObj<T>>
    }
 
 export function objectToFormData<
  T extends {
   [key: string | number]: unknown
  }
->(obj: DataObj<T>, form?: FormData, namespace?: string): FormData {
+>(obj: DataObj<T> | Partial<T>, form?: FormData, namespace?: string): FormData {
  const formData = form || new FormData()
 
  const isArr = isArray(obj)
