@@ -1,40 +1,40 @@
-import { isArray, isDate, isObject } from 'lodash'
-
-type BasicType = string | boolean | number | File | undefined | null
+type BasicType = string | boolean | number | File | undefined | null;
 
 type DataObj<T> =
- | BasicType[]
- | {
-    [P in keyof T]: BasicType | BasicType[] | Partial<DataObj<T>>
-   }
+	| BasicType[]
+	| {
+		[P in keyof T]: BasicType | BasicType[] | Partial<DataObj<T>>;
+	};
 
 export function objectToFormData<
- T extends {
-  [key: string | number]: unknown
- }
+	T extends {
+		[key: string | number]: unknown;
+	}
 >(obj: DataObj<T> | Partial<T>, form?: FormData, namespace?: string): FormData {
- const formData = form || new FormData()
+	const formData = form || new FormData();
 
- const isArr = isArray(obj)
+	const isArr = Array.isArray(obj);
 
- for (const key in obj) {
-  const property = obj[key]
-  if (!obj.hasOwnProperty(key) || !property) {
-   continue
-  }
+	for (const key in obj) {
+		if (Object.prototype.hasOwnProperty.call(obj, key)) {
+			const property = obj[key];
+			if (!property) {
+				continue;
+			}
 
-  const formKey = namespace ? (isArr ? namespace : `${namespace}[${key}]`) : key
+			const formKey = namespace ? (isArr ? namespace : `${namespace}[${key}]`) : key;
 
-  if (isDate(property)) {
-   formData.append(key, property.toISOString())
-  } else if (property instanceof File) {
-   formData.append(formKey, property)
-  } else if (!isObject(property)) {
-   formData.append(formKey, property.toString())
-  } else if (isObject(property)) {
-   objectToFormData(property, formData, key)
-  }
- }
+			if (property instanceof Date) {
+				formData.append(formKey, property.toISOString());
+			} else if (property instanceof File) {
+				formData.append(formKey, property);
+			} else if (typeof property !== 'object') {
+				formData.append(formKey, property.toString());
+			} else {
+				objectToFormData(property, formData, formKey);
+			}
+		}
+	}
 
- return formData
+	return formData;
 }
